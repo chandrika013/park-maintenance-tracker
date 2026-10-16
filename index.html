@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Park Maintenance Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f2f8f2;
+      color: #243b2a;
+    }
+
+    header {
+      background: #206b45;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 26px;
+    }
+
+    nav {
+      background: #164d32;
+      padding: 12px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 8px;
+    }
+
+    main {
+      max-width: 650px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+
+    section {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #00000012;
+    }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 11px;
+      margin-top: 6px;
+      border: 1px solid #b8cdbd;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 16px;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: #206b45;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .full-button {
+      width: 100%;
+    }
+
+    .complaint {
+      background: #f0f7f1;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #526557;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌿 ParkCare</h1>
+    <p>Public Park and Garden Maintenance Complaint Tracker</p>
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#report">Report a Problem</a>
+    <a href="#complaints">Complaints</a>
+  </nav>
+
+  <main>
+    <section id="home">
+      <h2>Keep Our Parks Clean and Green</h2>
+      <p>
+        Help improve public parks and gardens by reporting
+        maintenance problems in your area.
+      </p>
+    </section>
+
+    <section id="report">
+      <h2>Report a Maintenance Problem</h2>
+
+      <form id="complaintForm">
+        <label for="name">Your Name (optional)</label>
+        <input id="name" placeholder="Enter your name">
+
+        <label for="park">Park Name</label>
+        <input id="park" required placeholder="Enter park name">
+
+        <label for="location">Park Location</label>
+        <input id="location" required placeholder="Area or address">
+
+        <label for="type">Problem Type</label>
+        <select id="type" required>
+          <option value="">Select a problem</option>
+          <option>Garbage and cleanliness</option>
+          <option>Damaged bench or equipment</option>
+          <option>Poor lighting</option>
+          <option>Overgrown plants</option>
+          <option>Watering problem</option>
+          <option>Broken pathway</option>
+          <option>Other</option>
+        </select>
+
+        <label for="description">Problem Description</label>
+        <textarea id="description" required rows="4"
+          placeholder="Describe the problem"></textarea>
+
+        <label for="photo">Problem Photo (optional)</label>
+        <input id="photo" type="file" accept="image/*">
+
+        <button class="full-button" type="submit">
+          Submit Complaint
+        </button>
+      </form>
+    </section>
+
+    <section id="complaints">
+      <h2>Complaint Records</h2>
+      <p id="emptyMessage">No complaints have been submitted yet.</p>
+      <div id="complaintList"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>ParkCare | Working Together for Greener Public Spaces</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("complaintForm");
+    const list = document.getElementById("complaintList");
+    const emptyMessage = document.getElementById("emptyMessage");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const park = document.getElementById("park").value.trim();
+      const location = document.getElementById("location").value.trim();
+      const type = document.getElementById("type").value;
+      const description =
+        document.getElementById("description").value.trim();
+
+      if (!park || !location || !type || !description) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      const card = document.createElement("div");
+      card.className = "complaint";
+
+      const title = document.createElement("h3");
+      title.textContent = park + " — " + type;
+
+      const place = document.createElement("p");
+      place.textContent = "Location: " + location;
+
+      const details = document.createElement("p");
+      details.textContent = description;
+
+      const status = document.createElement("p");
+      status.textContent = "Status: Pending";
+
+      card.append(title, place, details, status);
+      list.prepend(card);
+
+      emptyMessage.hidden = true;
+      form.reset();
+
+      alert("Complaint added to this page!");
+    });
+  </script>
+
+</body>
+</html>
