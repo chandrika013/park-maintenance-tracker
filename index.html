@@ -171,6 +171,7 @@
     const form = document.getElementById("complaintForm");
     const list = document.getElementById("complaintList");
     const emptyMessage = document.getElementById("emptyMessage");
+    const authorityList = document.getElementById("authority-complaints");
 
     form.addEventListener("submit", function(event) {
       event.preventDefault();
@@ -202,7 +203,11 @@
       status.textContent = "Status: Pending";
 
       card.append(title, place, details, status);
-      list.prepend(card);
+
+const authorityCard = card.cloneNode(true);
+authorityList.prepend(authorityCard);
+
+list.prepend(card);
 
       emptyMessage.hidden = true;
       form.reset();
